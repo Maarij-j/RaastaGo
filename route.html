@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RaastaGo - Compare Routes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#652046",
+                        "primary-dark": "#4a1632",
+                        "background-light": "#f8f6f7",
+                        "background-dark": "#1e141a",
+                        "neutral-surface": "#ffffff",
+                        "neutral-border": "#e5e7eb",
+                        "brand-hover": "#662046", 
+                        "charcoal": "#2B2B2B",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(101, 32, 70, 0.08)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }.modal-backdrop {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .modal-backdrop.active .modal-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .interactive-btn {
+            background-color: transparent;
+            color: #374151;border-color: #e5e7eb;transition: all 0.2s ease-in-out;
+        }
+        .dark .interactive-btn {
+            color: #d1d5db;border-color: #374151;}
+        .interactive-btn:hover, .interactive-btn:focus-visible {
+            background-color: #662046;
+            color: #ffffff;
+            border-color: #662046;
+        }.mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 60;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .mobile-menu-overlay.open {
+            transform: translateX(0);
+        }
+        .dark .mobile-menu-overlay {
+            background-color: rgba(30, 20, 26, 0.95);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-100 min-h-screen flex flex-col relative">
+<header class="bg-white border-b border-gray-200 w-full flex-none z-50 relative overflow-visible">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<a class="flex items-center gap-3 group" href="#">
+<div class="bg-primary w-10 h-10 flex items-center justify-center rounded-lg shadow-sm group-hover:bg-primary-dark transition-colors">
+<span class="text-white font-bold text-xl">R</span>
+</div>
+<span class="text-2xl font-bold tracking-tight text-[#2B2B2B]">RaastaGo</span>
+</a>
+<nav class="hidden md:flex space-x-8">
+<a class="text-gray-600 hover:text-primary font-medium transition-colors" href="#">Home</a>
+<a class="text-primary font-bold transition-colors" href="#">Compare Routes</a>
+<a class="text-gray-600 hover:text-primary font-medium transition-colors" href="#">Analysis</a>
+<a class="text-gray-600 hover:text-primary font-medium transition-colors" href="#">Safety</a>
+<a class="text-gray-600 hover:text-primary font-medium transition-colors" href="#">Feedback</a>
+</nav>
+<button aria-label="Open menu" class="md:hidden flex items-center justify-center w-11 h-11 text-gray-600 hover:text-primary focus:outline-none" id="mobile-menu-btn" type="button">
+<span class="material-icons text-3xl">menu</span>
+</button>
+</div>
+</div>
+</header>
+<div class="mobile-menu-overlay" id="mobile-menu">
+<button aria-label="Close menu" class="absolute top-5 right-5 w-11 h-11 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" id="mobile-menu-close">
+<span class="material-icons text-3xl">close</span>
+</button>
+<nav class="flex flex-col space-y-8 text-center">
+<a class="text-2xl font-medium text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-2xl font-bold text-primary dark:text-primary transition-colors" href="#">Compare Routes</a>
+<a class="text-2xl font-medium text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors" href="#">Analysis</a>
+<a class="text-2xl font-medium text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors" href="#">Safety</a>
+<a class="text-2xl font-medium text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors" href="#">Feedback</a>
+</nav>
+</div>
+<div class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col lg:flex-row gap-6 relative">
+<aside class="w-full lg:w-[480px] bg-white dark:bg-[#2a1f25] flex flex-col shadow-xl border border-gray-200 dark:border-[#3d2c35] rounded-xl flex-none lg:h-[700px] lg:overflow-hidden lg:sticky lg:top-6 order-1">
+<div class="p-6 pb-2 flex-none">
+<div class="mb-4">
+<h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">Select Route</h1>
+<p class="text-sm text-gray-500 dark:text-gray-400">Gulberg III <span class="material-icons text-xs align-middle mx-1">arrow_forward</span> DHA Phase 6</p>
+</div>
+<div class="bg-gray-100 dark:bg-gray-800 p-1 rounded-lg flex mb-2">
+<button class="flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-md text-sm font-medium transition-all bg-white dark:bg-[#2a1f25] text-primary dark:text-pink-400 shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 active-sort" id="sort-fastest" onclick="sortRoutes('duration')">
+<span class="material-icons text-base">bolt</span>
+                        Fastest
+                    </button>
+<button class="flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-md text-sm font-medium transition-all text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" id="sort-cheapest" onclick="sortRoutes('cost')">
+<span class="material-icons text-base">payments</span>
+                        Cheapest
+                    </button>
+</div>
+</div>
+<div class="flex-1 px-6 pb-6 space-y-4 lg:overflow-y-auto custom-scroll" id="route-list">
+<div class="route-card bg-white dark:bg-[#2a1f25] rounded-xl border border-gray-100 dark:border-gray-800 p-5 shadow-sm hover:shadow-md transition-all cursor-pointer hover:border-gray-300 dark:hover:border-gray-600" data-cost="50" data-duration="70" data-modes="metro">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-bold text-gray-900 dark:text-white">1h 10m</span>
+</div>
+<div class="text-right">
+<span class="block text-xl font-bold text-primary dark:text-pink-400">Rs. 50</span>
+</div>
+</div>
+<div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300 mb-4">
+<div class="flex items-center gap-1 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded">
+<span class="material-icons text-base">directions_bus</span>
+<span>Metro</span>
+</div>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg mb-4 border border-gray-100 dark:border-gray-700/50">
+<div class="flex gap-2">
+<span class="material-icons text-gray-400 text-sm mt-0.5">info</span>
+<div>
+<p class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-0.5">Why this?</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Absolute cheapest option available. Expect delays.</p>
+</div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 py-2 px-4 rounded-lg border border-gray-200 text-sm font-medium interactive-btn outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#662046] dark:focus:ring-offset-[#2a1f25]">
+                            View details
+                        </button>
+<button class="flex-1 py-2 px-4 rounded-lg border border-gray-200 text-sm font-medium interactive-btn outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#662046] dark:focus:ring-offset-[#2a1f25]">
+                            Select route
+                        </button>
+</div>
+</div>
+<div class="route-card bg-white dark:bg-[#2a1f25] rounded-xl border border-gray-100 dark:border-gray-800 p-5 shadow-sm hover:shadow-md transition-all cursor-pointer hover:border-gray-300 dark:hover:border-gray-600" data-cost="120" data-duration="45" data-modes="orangeline">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-bold text-gray-900 dark:text-white">45 min</span>
+<span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded dark:bg-green-900/30 dark:text-green-400">On Time</span>
+</div>
+<div class="text-right">
+<span class="block text-xl font-bold text-primary dark:text-pink-400">Rs. 120</span>
+</div>
+</div>
+<div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300 mb-4">
+<div class="flex items-center gap-1 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded">
+<span class="material-icons text-base">train</span>
+<span>Orange Line</span>
+</div>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg mb-4 border border-gray-100 dark:border-gray-700/50">
+<div class="flex gap-2">
+<span class="material-icons text-gray-400 text-sm mt-0.5">info</span>
+<div>
+<p class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-0.5">Why this?</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Avoids heavy traffic on Canal Road. Most reliable during rush hour.</p>
+</div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 py-2 px-4 rounded-lg border border-gray-200 text-sm font-medium interactive-btn outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#662046] dark:focus:ring-offset-[#2a1f25]">
+                            View details
+                        </button>
+<button class="flex-1 py-2 px-4 rounded-lg border border-gray-200 text-sm font-medium interactive-btn outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#662046] dark:focus:ring-offset-[#2a1f25]">
+                            Select route
+                        </button>
+</div>
+</div>
+<div class="route-card bg-white dark:bg-[#2a1f25] rounded-xl border border-gray-100 dark:border-gray-800 p-5 shadow-sm hover:shadow-md transition-all cursor-pointer hover:border-gray-300 dark:hover:border-gray-600 opacity-90" data-cost="650" data-duration="35" data-modes="taxi">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-bold text-gray-900 dark:text-white">35 min</span>
+</div>
+<div class="text-right">
+<span class="block text-xl font-bold text-primary dark:text-pink-400">Rs. 650</span>
+</div>
+</div>
+<div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300 mb-4">
+<div class="flex items-center gap-1 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded">
+<span class="material-icons text-base">directions_car</span>
+<span>Taxi</span>
+</div>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg mb-4 border border-gray-100 dark:border-gray-700/50">
+<div class="flex gap-2">
+<span class="material-icons text-gray-400 text-sm mt-0.5">info</span>
+<div>
+<p class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-0.5">Why this?</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Direct route. Fastest door-to-door but expensive.</p>
+</div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 py-2 px-4 rounded-lg border border-gray-200 text-sm font-medium interactive-btn outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#662046] dark:focus:ring-offset-[#2a1f25]">
+                            View details
+                        </button>
+<button class="flex-1 py-2 px-4 rounded-lg border border-gray-200 text-sm font-medium interactive-btn outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#662046] dark:focus:ring-offset-[#2a1f25]">
+                            Select route
+                        </button>
+</div>
+</div>
+<div class="route-card bg-white dark:bg-[#2a1f25] rounded-xl border border-gray-100 dark:border-gray-800 p-5 shadow-sm hover:shadow-md transition-all cursor-pointer hover:border-gray-300 dark:hover:border-gray-600 opacity-90" data-cost="250" data-duration="40" data-modes="bike">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-bold text-gray-900 dark:text-white">40 min</span>
+</div>
+<div class="text-right">
+<span class="block text-xl font-bold text-primary dark:text-pink-400">Rs. 250</span>
+</div>
+</div>
+<div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300 mb-4">
+<div class="flex items-center gap-1 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded">
+<span class="material-icons text-base">two_wheeler</span>
+<span>Bike</span>
+</div>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg mb-4 border border-gray-100 dark:border-gray-700/50">
+<div class="flex gap-2">
+<span class="material-icons text-gray-400 text-sm mt-0.5">info</span>
+<div>
+<p class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-0.5">Why this?</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Good balance of speed and cost. Weather permitting.</p>
+</div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 py-2 px-4 rounded-lg border border-gray-200 text-sm font-medium interactive-btn outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#662046] dark:focus:ring-offset-[#2a1f25]">
+                            View details
+                        </button>
+<button class="flex-1 py-2 px-4 rounded-lg border border-gray-200 text-sm font-medium interactive-btn outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#662046] dark:focus:ring-offset-[#2a1f25]">
+                            Select route
+                        </button>
+</div>
+</div>
+</div>
+</aside>
+<main class="w-full lg:flex-1 relative bg-gray-100 dark:bg-gray-900 rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-[#3d2c35] h-[300px] lg:h-[700px] order-2 z-10">
+<div class="absolute inset-0 z-0">
+<img alt="Top down view of city streets map pattern" class="w-full h-full object-cover opacity-60 dark:opacity-30 mix-blend-multiply dark:mix-blend-luminosity grayscale" data-alt="Top down view of city streets map pattern" data-location="Lahore, Pakistan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo2Y-QmJrwuZw6Q7NawCEeDy5aAKnwoRStkfIomhALkox3knLEOowDxtdl6zeIuoSUvQcsjGxZT5kK2w0cgifv77ksyDSrwL5sRXQxtA6Tdjhuf_qtcySrU2RLoKpNhIUCJ62cZz4V_H1Q9lRZ9wSzNTgb8Y0OMoqrV19o7NxX9Z22aY-Ud_8D_MZtRnQ3wnglAVdqZXnfvqY6LXRzqtCJeGjlGj3PGA_oylvGiSd-2i11KeBYwEoGXwWvJbvAN67jg91jL6lalQ"/>
+</div>
+<svg class="absolute inset-0 z-0 w-full h-full pointer-events-none" style="filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.3));">
+<path class="opacity-40" d="M200,800 C300,700 400,600 450,450 S 600,300 800,200" fill="none" stroke="#652046" stroke-dasharray="10 5" stroke-linecap="round" stroke-width="6"></path>
+<path d="M200,800 C350,750 450,700 500,500 S 700,400 800,200" fill="none" stroke="#652046" stroke-linecap="round" stroke-width="8"></path>
+<circle cx="200" cy="800" fill="white" r="12" stroke="#652046" stroke-width="4"></circle>
+<circle cx="800" cy="200" fill="#652046" r="12" stroke="white" stroke-width="2"></circle>
+</svg>
+<div class="absolute bottom-8 right-8 flex flex-col gap-3 z-10">
+<button class="w-10 h-10 bg-white dark:bg-[#2a1f25] rounded-full shadow-lg flex items-center justify-center text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" title="Zoom In">
+<span class="material-icons text-xl">add</span>
+</button>
+<button class="w-10 h-10 bg-white dark:bg-[#2a1f25] rounded-full shadow-lg flex items-center justify-center text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" title="Zoom Out">
+<span class="material-icons text-xl">remove</span>
+</button>
+<button class="w-10 h-10 bg-white dark:bg-[#2a1f25] rounded-full shadow-lg flex items-center justify-center text-primary dark:text-pink-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors mt-2" title="Recenter">
+<span class="material-icons text-xl">my_location</span>
+</button>
+</div>
+</main>
+</div>
+<div class="fixed inset-0 z-50 flex items-center justify-center modal-backdrop backdrop-blur-sm bg-black/40" id="modal-backdrop">
+<div class="bg-white dark:bg-[#2a1f25] rounded-xl shadow-soft border border-gray-100 dark:border-gray-700 w-full max-w-lg mx-4 p-6 relative modal-content" id="modal-panel">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors focus:outline-none" id="modal-close-btn" onclick="closeModalDirect()">
+<span class="material-icons">close</span>
+</button>
+<h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3" id="modal-title">Modal Title</h2>
+<div class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed space-y-2" id="modal-body">
+</div>
+</div>
+</div>
+<footer class="bg-white border-t border-gray-200 py-6 mt-auto flex-none z-20 relative order-3">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-gray-500 text-sm">© 2026 RaastaGo. All rights reserved.</p>
+<div class="flex gap-6">
+<button class="text-gray-500 hover:text-primary text-sm transition-colors cursor-pointer focus:outline-none focus:text-primary" onclick="openModal('privacy', this)">Privacy</button>
+<button class="text-gray-500 hover:text-primary text-sm transition-colors cursor-pointer focus:outline-none focus:text-primary" onclick="openModal('terms', this)">Terms</button>
+<button class="text-gray-500 hover:text-primary text-sm transition-colors cursor-pointer focus:outline-none focus:text-primary" onclick="openModal('about', this)">About Us</button>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        function sortRoutes(type) {
+            const list = document.getElementById('route-list');
+            const cards = Array.from(list.getElementsByClassName('route-card'));
+            const btnFastest = document.getElementById('sort-fastest');
+            const btnCheapest = document.getElementById('sort-cheapest');
+            // Active/Inactive classes
+            const activeClasses = ['bg-white', 'dark:bg-[#2a1f25]', 'text-primary', 'dark:text-pink-400', 'shadow-sm', 'ring-1', 'ring-gray-200', 'dark:ring-gray-700'];
+            const inactiveClasses = ['text-gray-500', 'hover:text-gray-700', 'dark:text-gray-400', 'dark:hover:text-gray-200'];
+            // Remove existing classes first to ensure clean state toggle
+            btnFastest.classList.remove(...activeClasses, ...inactiveClasses);
+            btnCheapest.classList.remove(...activeClasses, ...inactiveClasses);
+            if (type === 'duration') {
+                btnFastest.classList.add(...activeClasses);
+                btnCheapest.classList.add(...inactiveClasses);
+                cards.sort((a, b) => {
+                    return parseInt(a.dataset.duration) - parseInt(b.dataset.duration);
+                });
+            } else {
+                btnCheapest.classList.add(...activeClasses);
+                btnFastest.classList.add(...inactiveClasses);
+                cards.sort((a, b) => {
+                    return parseInt(a.dataset.cost) - parseInt(b.dataset.cost);
+                });
+            }
+            // Re-append in new order
+            cards.forEach(card => list.appendChild(card));
+        }
+        // Modal Logic
+        const modalContent = {
+            'privacy': {
+                title: 'Privacy Policy',
+                body: '<p>Your data is used strictly for routing purposes only. We ensure your location history is protected and never sold to third parties.</p>'
+            },
+            'terms': {
+                title: 'Terms of Service',
+                body: '<p>Travel time estimates may vary based on actual traffic conditions. Users are responsible for their safety. RaastaGo holds limited liability for route accuracy.</p>'
+            },
+            'about': {
+                title: 'About Us',
+                body: '<p>Our mission is to improve daily commutes across Punjab by providing smart, data-driven route optimization for everyone.</p><p class="mt-2 font-medium">Contact: support@raastago.pk</p>'
+            }
+        };
+        let lastFocusedElement = null;
+        function openModal(type, triggerElement) {
+            if (triggerElement) lastFocusedElement = triggerElement;
+            const backdrop = document.getElementById('modal-backdrop');
+            const titleEl = document.getElementById('modal-title');
+            const bodyEl = document.getElementById('modal-body');
+            if (modalContent[type]) {
+                titleEl.textContent = modalContent[type].title;
+                bodyEl.innerHTML = modalContent[type].body;
+                backdrop.classList.add('active');
+                // Focus management for accessibility
+                const closeBtn = document.getElementById('modal-close-btn');
+                if(closeBtn) setTimeout(() => closeBtn.focus(), 100);
+            }
+        }
+        function closeModal(event) {
+            // Check if the click is on the backdrop itself, not its children
+            if (event.target.id === 'modal-backdrop') {
+                closeModalDirect();
+            }
+        }
+        // Attach click listener to backdrop for closing
+        document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+        function closeModalDirect() {
+            const backdrop = document.getElementById('modal-backdrop');
+            backdrop.classList.remove('active');
+            if (lastFocusedElement) {
+                lastFocusedElement.focus();
+            }
+        }
+        document.addEventListener('keydown', function(event) {
+            const backdrop = document.getElementById('modal-backdrop');
+            if (event.key === 'Escape' && backdrop.classList.contains('active')) {
+                closeModalDirect();
+            }
+            // Mobile menu esc close
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (event.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                closeMobileMenu();
+            }
+        });
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        function openMobileMenu() {
+            mobileMenu.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
+        if(mobileMenuCloseBtn) mobileMenuCloseBtn.addEventListener('click', closeMobileMenu);
+        // Close menu when clicking outside (on backdrop)
+        if(mobileMenu) mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                closeMobileMenu();
+            }
+        });
+    </script>
+</body></html>

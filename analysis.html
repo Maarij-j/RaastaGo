@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RaastaGo - Route Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#652046",
+                        "primary-hover": "#4a1733",
+                        "background-light": "#f8f6f7",
+                        "background-dark": "#1e141a",
+                        "neutral-50": "#fbf8f9",
+                        "neutral-100": "#f3eef0",
+                        "neutral-200": "#e6dce1",
+                        "neutral-300": "#cfbdc6",
+                        "neutral-400": "#b095a3",
+                        "neutral-500": "#8f6f7f",
+                        "neutral-600": "#725263",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #cfbdc6;
+            border-radius: 20px;
+        }
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-neutral-600 dark:text-neutral-200 font-display antialiased min-h-screen flex flex-col">
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-600">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16 items-center">
+<a class="flex items-center gap-3 group" href="#">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-sm group-hover:bg-primary-hover transition-colors">
+<span class="text-white font-bold text-xl">R</span>
+</div>
+<span class="font-bold text-xl tracking-tight text-neutral-800 dark:text-white">RaastaGo</span>
+</a>
+<div>
+<a class="group inline-flex items-center text-sm font-medium text-neutral-500 hover:text-primary transition-colors" href="#">
+<span class="material-icons-round text-lg mr-1 group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                        Back to Compare
+                    </a>
+</div>
+</div>
+</div>
+</nav>
+<main class="flex-grow container mx-auto px-4 py-8 sm:px-6 lg:px-8 max-w-6xl">
+<header class="mb-8">
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div>
+<div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary mb-2">
+                        Recommended Route
+                    </div>
+<h1 class="text-3xl font-bold text-gray-900 dark:text-white">Liberty Market <span class="text-neutral-400 mx-2">to</span> UET Lahore</h1>
+<p class="text-neutral-500 mt-1">Optimization preference: Balanced (Cost &amp; Time)</p>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-white dark:bg-neutral-600/30 rounded-xl p-6 border border-neutral-100 dark:border-neutral-600 shadow-sm flex items-center justify-between">
+<div>
+<p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">Total Duration</p>
+<p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">45 <span class="text-lg font-normal text-neutral-400">mins</span></p>
+</div>
+<div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-icons-round text-primary text-2xl">schedule</span>
+</div>
+</div>
+<div class="bg-white dark:bg-neutral-600/30 rounded-xl p-6 border border-neutral-100 dark:border-neutral-600 shadow-sm flex items-center justify-between">
+<div>
+<p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">Total Cost</p>
+<p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">120 <span class="text-lg font-normal text-neutral-400">PKR</span></p>
+</div>
+<div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-icons-round text-primary text-2xl">payments</span>
+</div>
+</div>
+<div class="bg-white dark:bg-neutral-600/30 rounded-xl p-6 border border-neutral-100 dark:border-neutral-600 shadow-sm flex items-center justify-between">
+<div>
+<p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">Transfers</p>
+<p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">2 <span class="text-lg font-normal text-neutral-400">swaps</span></p>
+</div>
+<div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-icons-round text-primary text-2xl">transfer_within_a_station</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-1">
+<div class="bg-white dark:bg-neutral-600/30 rounded-xl border border-neutral-100 dark:border-neutral-600 shadow-sm h-full">
+<div class="p-5 border-b border-neutral-100 dark:border-neutral-600">
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Segment Breakdown</h2>
+</div>
+<div class="p-6">
+<div class="relative pl-4 border-l-2 border-neutral-200 dark:border-neutral-600 space-y-8">
+<div class="relative">
+<div class="absolute -left-[21px] top-1 h-3 w-3 rounded-full border-2 border-primary bg-white dark:bg-background-dark"></div>
+<div class="mb-1">
+<span class="text-xs font-semibold uppercase tracking-wider text-neutral-400">09:00 AM</span>
+</div>
+<h3 class="font-medium text-gray-900 dark:text-white">Start at Liberty Market</h3>
+</div>
+<div class="relative">
+<div class="absolute -left-[27px] top-0 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white">
+<span class="material-icons-round text-xs">directions_walk</span>
+</div>
+<div class="bg-neutral-50 dark:bg-neutral-600/50 p-3 rounded-lg border border-neutral-100 dark:border-neutral-500">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-medium text-sm text-gray-900 dark:text-white">Walk to Bus Stop</h4>
+<span class="text-xs font-medium text-neutral-500">Free</span>
+</div>
+<div class="text-xs text-neutral-500">5 mins • 400m</div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[27px] top-0 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-white">
+<span class="material-icons-round text-xs">tram</span>
+</div>
+<div class="bg-neutral-50 dark:bg-neutral-600/50 p-3 rounded-lg border border-neutral-100 dark:border-neutral-500">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-medium text-sm text-gray-900 dark:text-white">Orange Line Metro</h4>
+<span class="text-xs font-medium text-neutral-500">40 PKR</span>
+</div>
+<div class="text-xs text-neutral-500">Ali Town St. → Anarkali St.</div>
+<div class="text-xs text-primary font-medium mt-1">20 mins</div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[27px] top-0 flex h-6 w-6 items-center justify-center rounded-full bg-yellow-500 text-white">
+<span class="material-icons-round text-xs">local_taxi</span>
+</div>
+<div class="bg-neutral-50 dark:bg-neutral-600/50 p-3 rounded-lg border border-neutral-100 dark:border-neutral-500">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-medium text-sm text-gray-900 dark:text-white">Auto Rickshaw</h4>
+<span class="text-xs font-medium text-neutral-500">80 PKR</span>
+</div>
+<div class="text-xs text-neutral-500">Anarkali to UET Gate 3</div>
+<div class="text-xs text-primary font-medium mt-1">15 mins</div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[21px] top-1 h-3 w-3 rounded-full border-2 border-primary bg-primary"></div>
+<div class="mb-1">
+<span class="text-xs font-semibold uppercase tracking-wider text-neutral-400">09:45 AM</span>
+</div>
+<h3 class="font-medium text-gray-900 dark:text-white">Arrive at UET Lahore</h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+<div class="bg-white dark:bg-neutral-600/30 rounded-xl border border-neutral-100 dark:border-neutral-600 shadow-sm p-5 flex flex-col">
+<div class="mb-4">
+<h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide">Time Allocation</h3>
+<p class="text-xs text-neutral-400">Duration by transport mode</p>
+</div>
+<div class="flex-grow flex items-end justify-around space-x-2 pt-4 pb-2 relative h-48">
+<div class="flex flex-col items-center w-1/4 group">
+<div class="text-xs font-bold text-neutral-600 dark:text-neutral-300 mb-1 opacity-0 group-hover:opacity-100 transition-opacity">5m</div>
+<div class="w-full bg-neutral-300 rounded-t-sm hover:bg-neutral-400 transition-colors" style="height: 15%;"></div>
+<div class="mt-2 text-xs text-neutral-500 text-center">Walk</div>
+</div>
+<div class="flex flex-col items-center w-1/4 group">
+<div class="text-xs font-bold text-primary mb-1 opacity-0 group-hover:opacity-100 transition-opacity">20m</div>
+<div class="w-full bg-primary rounded-t-sm hover:bg-primary-hover transition-colors" style="height: 60%;"></div>
+<div class="mt-2 text-xs text-neutral-500 text-center">Metro</div>
+</div>
+<div class="flex flex-col items-center w-1/4 group">
+<div class="text-xs font-bold text-neutral-600 dark:text-neutral-300 mb-1 opacity-0 group-hover:opacity-100 transition-opacity">5m</div>
+<div class="w-full bg-neutral-300 rounded-t-sm hover:bg-neutral-400 transition-colors" style="height: 15%;"></div>
+<div class="mt-2 text-xs text-neutral-500 text-center">Wait</div>
+</div>
+<div class="flex flex-col items-center w-1/4 group">
+<div class="text-xs font-bold text-primary mb-1 opacity-0 group-hover:opacity-100 transition-opacity">15m</div>
+<div class="w-full bg-primary/80 rounded-t-sm hover:bg-primary transition-colors" style="height: 45%;"></div>
+<div class="mt-2 text-xs text-neutral-500 text-center">Auto</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-neutral-600/30 rounded-xl border border-neutral-100 dark:border-neutral-600 shadow-sm p-5 flex flex-col">
+<div class="mb-4">
+<h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide">Cost Breakdown</h3>
+<p class="text-xs text-neutral-400">PKR per segment</p>
+</div>
+<div class="flex-grow flex flex-col justify-center h-48">
+<div class="w-full h-8 rounded-full flex overflow-hidden shadow-inner">
+<div class="bg-primary w-[33%] hover:opacity-90 transition-opacity relative group" title="Metro: 40 PKR">
+</div>
+<div class="bg-neutral-400 w-[67%] hover:opacity-90 transition-opacity relative group" title="Rickshaw: 80 PKR">
+</div>
+</div>
+<div class="mt-6 space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<span class="w-3 h-3 rounded-full bg-primary mr-2"></span>
+<span class="text-sm text-neutral-600 dark:text-neutral-300">Metro Ticket</span>
+</div>
+<span class="text-sm font-semibold text-gray-900 dark:text-white">40 PKR</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<span class="w-3 h-3 rounded-full bg-neutral-400 mr-2"></span>
+<span class="text-sm text-neutral-600 dark:text-neutral-300">Rickshaw Fare</span>
+</div>
+<span class="text-sm font-semibold text-gray-900 dark:text-white">80 PKR</span>
+</div>
+<div class="flex items-center justify-between opacity-50">
+<div class="flex items-center">
+<span class="w-3 h-3 rounded-full bg-neutral-200 mr-2"></span>
+<span class="text-sm text-neutral-600 dark:text-neutral-300">Walking</span>
+</div>
+<span class="text-sm font-semibold text-gray-900 dark:text-white">0 PKR</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-neutral-600/30 rounded-xl border border-neutral-100 dark:border-neutral-600 shadow-sm overflow-hidden group cursor-pointer relative">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 flex items-end p-6">
+<div class="w-full">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-white/80 text-sm font-medium mb-1">Visual Overview</p>
+<h3 class="text-white text-xl font-bold">View on Map</h3>
+</div>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-lg transition-colors">
+<span class="material-icons-round">open_in_full</span>
+</button>
+</div>
+</div>
+</div>
+<div class="h-48 w-full bg-neutral-200 dark:bg-neutral-700 relative overflow-hidden" data-alt="Abstract map representation of Lahore city streets with route highlighted" data-location="Lahore">
+<div class="absolute inset-0 opacity-30 dark:opacity-20 bg-[radial-gradient(#652046_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+<path class="drop-shadow-md" d="M 100 150 Q 250 50 400 100 T 700 80" fill="none" stroke="#652046" stroke-width="4"></path>
+<circle cx="100" cy="150" fill="#652046" r="6"></circle>
+<circle cx="700" cy="80" fill="#652046" r="6"></circle>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white border-t border-neutral-200 mt-auto">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="text-sm text-neutral-500">
+                © 2026 RaastaGo Optimized for Punjab
+            </div>
+<div class="flex gap-6">
+<button class="text-sm text-neutral-500 hover:text-primary transition-colors" onclick="document.getElementById('privacy-modal').showModal()">Privacy</button>
+<button class="text-sm text-neutral-500 hover:text-primary transition-colors" onclick="document.getElementById('terms-modal').showModal()">Terms</button>
+<button class="text-sm text-neutral-500 hover:text-primary transition-colors" onclick="document.getElementById('about-modal').showModal()">About Us</button>
+</div>
+</div>
+</div>
+</footer>
+<dialog class="p-0 rounded-xl shadow-2xl backdrop:bg-black/50 w-full max-w-2xl bg-white dark:bg-background-dark text-left" id="privacy-modal">
+<div class="p-6 border-b border-neutral-200 dark:border-neutral-600 flex justify-between items-center">
+<h3 class="text-xl font-bold text-gray-900 dark:text-white">Privacy Policy</h3>
+<button class="text-neutral-400 hover:text-neutral-500 focus:outline-none" onclick="document.getElementById('privacy-modal').close()">
+<span class="material-icons-round">close</span>
+</button>
+</div>
+<div class="p-6 max-h-[60vh] overflow-y-auto text-neutral-600 dark:text-neutral-300 space-y-4">
+<p><strong>Last Updated: January 2026</strong></p>
+<p>At RaastaGo, we prioritize the privacy of our users. This Privacy Policy outlines the types of information we collect and how we use it to optimize your public transport experience in Punjab.</p>
+<h4 class="font-bold text-gray-900 dark:text-white mt-4">Data Collection</h4>
+<p>We collect minimal data necessary for route planning, including current location (if granted) and destination search queries. We do not store personal tracking history.</p>
+<h4 class="font-bold text-gray-900 dark:text-white mt-4">Third-Party Services</h4>
+<p>Our maps and transit data may be sourced from third-party providers like Google Maps or local transport authorities. Their privacy policies apply when interacting with map features.</p>
+</div>
+<div class="p-6 border-t border-neutral-200 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-800/50 rounded-b-xl flex justify-end">
+<button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors" onclick="document.getElementById('privacy-modal').close()">Close</button>
+</div>
+</dialog>
+<dialog class="p-0 rounded-xl shadow-2xl backdrop:bg-black/50 w-full max-w-2xl bg-white dark:bg-background-dark text-left" id="terms-modal">
+<div class="p-6 border-b border-neutral-200 dark:border-neutral-600 flex justify-between items-center">
+<h3 class="text-xl font-bold text-gray-900 dark:text-white">Terms of Service</h3>
+<button class="text-neutral-400 hover:text-neutral-500 focus:outline-none" onclick="document.getElementById('terms-modal').close()">
+<span class="material-icons-round">close</span>
+</button>
+</div>
+<div class="p-6 max-h-[60vh] overflow-y-auto text-neutral-600 dark:text-neutral-300 space-y-4">
+<p><strong>Effective Date: January 2026</strong></p>
+<p>By using RaastaGo, you agree to these Terms of Service. Our platform provides public transport information "as is" without warranties of any kind regarding accuracy or reliability.</p>
+<h4 class="font-bold text-gray-900 dark:text-white mt-4">Usage Guidelines</h4>
+<p>You agree to use RaastaGo only for lawful purposes. Automated scraping of our route data is strictly prohibited without prior written consent.</p>
+<h4 class="font-bold text-gray-900 dark:text-white mt-4">Limitation of Liability</h4>
+<p>RaastaGo is not liable for any delays, missed connections, or financial losses incurred while using routes suggested by our platform. Always verify schedules with local operators.</p>
+</div>
+<div class="p-6 border-t border-neutral-200 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-800/50 rounded-b-xl flex justify-end">
+<button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors" onclick="document.getElementById('terms-modal').close()">Accept</button>
+</div>
+</dialog>
+<dialog class="p-0 rounded-xl shadow-2xl backdrop:bg-black/50 w-full max-w-2xl bg-white dark:bg-background-dark text-left" id="about-modal">
+<div class="p-6 border-b border-neutral-200 dark:border-neutral-600 flex justify-between items-center">
+<h3 class="text-xl font-bold text-gray-900 dark:text-white">About Us</h3>
+<button class="text-neutral-400 hover:text-neutral-500 focus:outline-none" onclick="document.getElementById('about-modal').close()">
+<span class="material-icons-round">close</span>
+</button>
+</div>
+<div class="p-6 max-h-[60vh] overflow-y-auto text-neutral-600 dark:text-neutral-300 space-y-4">
+<p>RaastaGo is Punjab's dedicated public transport companion. Our mission is to simplify commuting in cities like Lahore, Multan, and Rawalpindi by providing accurate, multi-modal route options.</p>
+<p>We combine Metro Bus, Orange Line, Speedo Bus, and local rickshaw networks into a single, seamless journey planner.</p>
+<div class="mt-6 p-4 bg-primary/5 rounded-lg border border-primary/10">
+<h5 class="font-bold text-primary mb-2">Contact</h5>
+<p class="text-sm">Email: support@raastago.pk<br/>Address: Technology Park, Ferozepur Road, Lahore.</p>
+</div>
+</div>
+<div class="p-6 border-t border-neutral-200 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-800/50 rounded-b-xl flex justify-end">
+<button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors" onclick="document.getElementById('about-modal').close()">Close</button>
+</div>
+</dialog>
+</body></html>

@@ -1,0 +1,28 @@
+{
+  "name": "raastago-web",
+  "version": "1.0.0",
+  "description": "RaastaGo - Smart Route Optimization for Punjab",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "vercel-dev": "npx vercel dev --listen 3000",
+    "build": "node scripts/ensure-output-dir.js",
+    "deploy": "vercel deploy --prod"
+  },
+  "keywords": [
+    "routing",
+    "taxi",
+    "public-transport",
+    "lahore",
+    "punjab"
+  ],
+  "author": "RaastaGo Team",
+  "license": "MIT",
+  "devDependencies": {
+    "vercel": "latest"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

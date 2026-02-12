@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RaastaGo - User Feedback</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#652046",
+                        "primary-dark": "#4a1632",
+                        "primary-light": "#8a3a66",
+                        "background-light": "#f8f6f7",
+                        "background-dark": "#1e141a",
+                        "neutral-surface": "#ffffff",
+                        "neutral-surface-dark": "#2d1e26",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .star-rating input { display: none; }
+        .star-rating label { cursor: pointer; transition: color 0.2s; }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #652046;
+        }
+        .star-rating-group {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+        .star-rating-group > input { display: none; }
+        .star-rating-group > label {
+            cursor: pointer;
+            color: #d1d5db;font-size: 2rem;
+            transition: color 0.2s;
+        }
+        .star-rating-group > input:checked ~ label,
+        .star-rating-group > label:hover,
+        .star-rating-group > label:hover ~ label {
+            color: #652046;
+        }dialog {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 50;
+        }
+        dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }#mobile-menu-toggle {
+            display: none;
+        }
+        #mobile-menu-overlay {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .dark #mobile-menu-overlay {
+            background-color: rgba(45, 30, 38, 0.95);
+        }
+        #mobile-menu-toggle:checked ~ #mobile-menu-overlay {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-100 min-h-screen flex flex-col relative">
+<input aria-hidden="true" id="mobile-menu-toggle" type="checkbox"/>
+<nav class="w-full bg-white dark:bg-neutral-surface-dark border-b border-gray-200 dark:border-primary/20 sticky top-0 z-50 h-16">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+<div class="flex justify-between items-center h-full">
+<div class="flex items-center">
+<a class="flex-shrink-0 flex items-center gap-2 cursor-pointer no-underline group" href="#">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-lg group-hover:bg-primary-dark transition-colors">R</div>
+<span class="font-bold text-xl tracking-tight text-primary dark:text-white group-hover:text-primary-dark dark:group-hover:text-gray-200 transition-colors">RaastaGo</span>
+</a>
+</div>
+<div class="hidden md:flex md:items-center md:space-x-8 h-full">
+<a class="border-transparent text-gray-500 hover:border-primary hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium h-full transition-colors" href="#">Home</a>
+<a class="border-transparent text-gray-500 hover:border-primary hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium h-full transition-colors" href="#">Compare Routes</a>
+<a class="border-transparent text-gray-500 hover:border-primary hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium h-full transition-colors" href="#">Analysis</a>
+<a class="border-transparent text-gray-500 hover:border-primary hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium h-full transition-colors" href="#">Safety</a>
+<a class="border-primary text-gray-900 dark:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium h-full transition-colors" href="#">Feedback</a>
+</div>
+<div class="flex items-center md:hidden">
+<label class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary w-[44px] h-[44px] cursor-pointer z-50" for="mobile-menu-toggle">
+<span class="sr-only">Open main menu</span>
+<span class="material-icons">menu</span>
+</label>
+</div>
+</div>
+</div>
+</nav>
+<div id="mobile-menu-overlay">
+<label class="fixed inset-0 cursor-default" for="mobile-menu-toggle"></label>
+<div class="flex flex-col h-full relative z-10">
+<div class="flex items-center justify-between px-4 h-16 border-b border-gray-200 dark:border-gray-700">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-lg">R</div>
+<span class="font-bold text-xl tracking-tight text-primary dark:text-white">RaastaGo</span>
+</div>
+<label class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary w-[44px] h-[44px] cursor-pointer" for="mobile-menu-toggle">
+<span class="material-icons">close</span>
+</label>
+</div>
+<div class="px-4 py-6 space-y-4 flex flex-col justify-center flex-grow">
+<a class="block px-3 py-4 rounded-md text-xl font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 text-center" href="#">Home</a>
+<a class="block px-3 py-4 rounded-md text-xl font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 text-center" href="#">Compare Routes</a>
+<a class="block px-3 py-4 rounded-md text-xl font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 text-center" href="#">Analysis</a>
+<a class="block px-3 py-4 rounded-md text-xl font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 text-center" href="#">Safety</a>
+<a class="block px-3 py-4 rounded-md text-xl font-medium text-primary bg-primary/5 dark:text-white dark:bg-primary/20 text-center border border-primary/10" href="#">Feedback</a>
+</div>
+</div>
+</div>
+<main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<div class="max-w-2xl w-full space-y-8">
+<div class="text-center">
+<h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+                We value your feedback
+            </h1>
+<p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
+                Your feedback helps us make public transport in Punjab better for everyone. Let us know how we can improve RaastaGo.
+            </p>
+</div>
+<div class="bg-white dark:bg-neutral-surface-dark shadow-xl rounded-xl border border-gray-100 dark:border-primary/10 overflow-hidden relative">
+<div class="h-2 w-full bg-primary"></div>
+<div class="px-6 py-8 sm:p-10">
+<div class="mb-8 text-center">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">Rate your experience</label>
+<div class="flex justify-center">
+<div class="star-rating-group">
+<input id="star5" name="rating" type="radio" value="5"/><label class="material-icons" for="star5" title="5 stars">star</label>
+<input id="star4" name="rating" type="radio" value="4"/><label class="material-icons" for="star4" title="4 stars">star</label>
+<input id="star3" name="rating" type="radio" value="3"/><label class="material-icons" for="star3" title="3 stars">star</label>
+<input id="star2" name="rating" type="radio" value="2"/><label class="material-icons" for="star2" title="2 stars">star</label>
+<input id="star1" name="rating" type="radio" value="1"/><label class="material-icons" for="star1" title="1 star">star</label>
+</div>
+</div>
+</div>
+<form action="#" class="space-y-6" method="POST">
+<div class="grid grid-cols-1 gap-y-6 gap-x-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-200" for="category">
+                                What is this regarding?
+                            </label>
+<div class="mt-1 relative">
+<select class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-background-dark text-gray-900 dark:text-white shadow-sm focus:border-primary focus:ring-primary sm:text-sm py-3 pl-3 pr-10 appearance-none" id="category" name="category">
+<option>Route Accuracy</option>
+<option>Fare / Cost Info</option>
+<option>App User Interface</option>
+<option>Bug Report</option>
+<option>Other</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+<span class="material-icons text-sm">expand_more</span>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-200" for="message">
+                                Your Message
+                            </label>
+<div class="mt-1">
+<textarea class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-background-dark text-gray-900 dark:text-white shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-3" id="message" name="message" placeholder="Tell us about your experience or suggest an improvement..." rows="4"></textarea>
+</div>
+<p class="mt-2 text-xs text-gray-500 dark:text-gray-400">Please provide specific details about routes or stops if relevant.</p>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-200" for="email">
+                                Email Address <span class="text-gray-400 font-normal">(Optional)</span>
+</label>
+<div class="mt-1 relative rounded-md shadow-sm">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-icons text-gray-400 text-sm">email</span>
+</div>
+<input class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-background-dark text-gray-900 dark:text-white pl-10 focus:border-primary focus:ring-primary sm:text-sm py-3" id="email" name="email" placeholder="you@example.com" type="email"/>
+</div>
+<p class="mt-1 text-xs text-gray-500 dark:text-gray-400">We'll only use this to follow up on your feedback.</p>
+</div>
+</div>
+<div class="pt-4">
+<button class="group relative flex w-full justify-center rounded-lg bg-primary py-3 px-4 text-sm font-semibold text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200 shadow-md hover:shadow-lg" type="submit">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-icons group-hover:text-white/80 text-white/50 transition">send</span>
+</span>
+                            Submit Feedback
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white dark:bg-neutral-surface-dark border-t border-gray-200 dark:border-primary/20 py-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="text-sm text-gray-500 dark:text-gray-400">
+            © 2026 RaastaGo Optimized for Punjab
+        </div>
+<div class="flex gap-6">
+<button class="text-sm text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded px-1" onclick="document.getElementById('modal-privacy').showModal()">Privacy</button>
+<button class="text-sm text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded px-1" onclick="document.getElementById('modal-terms').showModal()">Terms</button>
+<button class="text-sm text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded px-1" onclick="document.getElementById('modal-about').showModal()">About Us</button>
+</div>
+</div>
+</footer>
+<div class="fixed inset-0 pointer-events-none opacity-5 z-[-1]" data-alt="Abstract subtle blurred map pattern background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmk-o1LfOF_OVjc7QTNH0YklErgunbpbUYV6FkSlnDkoIP5X7KXHnrZeE1JcCz8KX3WmShiS2wA0BPuGXXAY7SQ_eBpE5tpDstPJWfd-pn3HNl_G0YlApHT04yc-00ZpSWvGtp7NjVszgBerhpDVwVO_jHxhsb1yYaHvGA24tgj1S39o_HRPSF3UhQ1IaGQF5_C7BhddKn2TKPERd-6R6tWsYlvz5inTphxIbM7AX_fSXCb0k8M_70ZyRfwdCTmogVBcsx_msadA'); background-size: cover; background-position: center;">
+</div>
+<dialog class="modal" id="modal-privacy" onclick="if(event.target === this) this.close()">
+<div class="flex items-center justify-center min-h-screen p-4">
+<div class="bg-white dark:bg-neutral-surface-dark rounded-xl shadow-2xl max-w-lg w-full p-6 relative" onclick="event.stopPropagation()">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary" onclick="this.closest('dialog').close()">
+<span class="material-icons text-xl">close</span>
+</button>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Privacy Policy</h3>
+<div class="prose dark:prose-invert text-sm text-gray-600 dark:text-gray-300 space-y-3">
+<p>Your data is used strictly for routing purposes only. We ensure your location history is protected and never sold to third parties.</p>
+</div>
+</div>
+</div>
+</dialog>
+<dialog class="modal" id="modal-terms" onclick="if(event.target === this) this.close()">
+<div class="flex items-center justify-center min-h-screen p-4">
+<div class="bg-white dark:bg-neutral-surface-dark rounded-xl shadow-2xl max-w-lg w-full p-6 relative" onclick="event.stopPropagation()">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary" onclick="this.closest('dialog').close()">
+<span class="material-icons text-xl">close</span>
+</button>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Terms of Service</h3>
+<div class="prose dark:prose-invert text-sm text-gray-600 dark:text-gray-300 space-y-3">
+<p>Travel time estimates may vary based on actual traffic conditions. Users are responsible for their safety. RaastaGo holds limited liability for route accuracy.</p>
+</div>
+</div>
+</div>
+</dialog>
+<dialog class="modal" id="modal-about" onclick="if(event.target === this) this.close()">
+<div class="flex items-center justify-center min-h-screen p-4">
+<div class="bg-white dark:bg-neutral-surface-dark rounded-xl shadow-2xl max-w-lg w-full p-6 relative" onclick="event.stopPropagation()">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary" onclick="this.closest('dialog').close()">
+<span class="material-icons text-xl">close</span>
+</button>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">About Us</h3>
+<div class="prose dark:prose-invert text-sm text-gray-600 dark:text-gray-300 space-y-3">
+<p>Our mission is to improve daily commutes across Punjab by providing smart, data-driven route optimization for everyone.</p>
+<p class="font-medium text-primary dark:text-primary-light">Contact: support@raastago.pk</p>
+</div>
+</div>
+</div>
+</dialog>
+</body></html>

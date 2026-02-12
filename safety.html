@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Safety &amp; Awareness - RaastaGo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#652046",
+              "primary-dark": "#4a1532",
+              "background-light": "#fbfbfb","charcoal": "#2B2B2B",
+              "burgundy-50": "#fbf4f8",
+              "burgundy-100": "#f5e6ef",
+              "burgundy-600": "#662046",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+    </script>
+</head>
+<body class="bg-background-light font-display text-charcoal min-h-screen flex flex-col relative">
+<div class="fixed inset-0 z-[60] bg-white/90 backdrop-blur-md hidden md:hidden flex flex-col items-center justify-center space-y-8 p-6 transition-all duration-300" id="mobile-menu">
+<button aria-label="Close menu" class="absolute top-4 right-4 p-2 text-charcoal hover:text-primary transition-colors" onclick="toggleMenu()">
+<span class="material-symbols-outlined text-3xl">close</span>
+</button>
+<nav class="flex flex-col items-center space-y-6 text-xl font-medium">
+<a class="text-charcoal hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-charcoal hover:text-primary transition-colors" href="#">Compare Routes</a>
+<a class="text-charcoal hover:text-primary transition-colors" href="#">Analysis</a>
+<a class="text-primary font-bold" href="#">Safety</a>
+<a class="text-charcoal hover:text-primary transition-colors" href="#">Feedback</a>
+</nav>
+</div>
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16">
+<div class="flex items-center">
+<a class="flex-shrink-0 flex items-center gap-2" href="#">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="text-white font-bold text-xl">R</span>
+</div>
+<span class="font-bold text-xl text-primary tracking-tight">RaastaGo</span>
+</a>
+</div>
+<div class="hidden md:flex md:items-center md:space-x-8">
+<a class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium transition-colors" href="#">Home</a>
+<a class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium transition-colors" href="#">Compare Routes</a>
+<a class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium transition-colors" href="#">Analysis</a>
+<a class="text-primary font-semibold px-3 py-2 text-sm transition-colors border-b-2 border-primary" href="#">Safety</a>
+<a class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium transition-colors" href="#">Feedback</a>
+</div>
+<div class="md:hidden flex items-center">
+<button aria-label="Open menu" class="text-gray-500 hover:text-primary w-[44px] h-[44px] flex items-center justify-center relative z-50" onclick="toggleMenu()">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full space-y-10">
+<header class="text-center md:text-left space-y-3 pb-4 border-b border-gray-100">
+<h1 class="text-4xl font-bold text-charcoal tracking-tight">Safety &amp; Awareness</h1>
+<p class="text-lg text-gray-600 font-normal">Emergency numbers and practical steps for safer travel in Punjab.</p>
+</header>
+<section>
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+<div class="px-6 py-5 border-b border-gray-100 bg-red-50/50 flex items-center justify-between">
+<h2 class="text-lg font-bold text-red-700 flex items-center gap-2">
+<span class="material-symbols-outlined">emergency_home</span>
+                    Emergency Contacts
+                </h2>
+<span class="hidden sm:inline-block text-xs font-medium text-red-600 bg-red-100 px-2 py-1 rounded">24/7 Available</span>
+</div>
+<div class="divide-y divide-gray-100">
+<div class="p-4 sm:px-6 sm:py-5 flex items-center justify-between hover:bg-gray-50 transition-colors group">
+<div>
+<div class="font-bold text-charcoal text-lg">Police</div>
+<div class="text-sm text-gray-500">Immediate threat, crime reporting</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-mono text-xl font-bold text-gray-400 group-hover:text-charcoal transition-colors">15</span>
+<a class="bg-burgundy-600 hover:bg-primary-dark text-white text-sm font-medium py-2 px-4 rounded shadow-sm hover:shadow transition-all flex items-center gap-2" href="tel:15">
+<span class="material-symbols-outlined text-[18px]">call</span>
+                            Call
+                        </a>
+</div>
+</div>
+<div class="p-4 sm:px-6 sm:py-5 flex items-center justify-between hover:bg-gray-50 transition-colors group">
+<div>
+<div class="font-bold text-charcoal text-lg">Rescue</div>
+<div class="text-sm text-gray-500">Medical emergency, accident</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-mono text-xl font-bold text-gray-400 group-hover:text-charcoal transition-colors">1122</span>
+<a class="bg-burgundy-600 hover:bg-primary-dark text-white text-sm font-medium py-2 px-4 rounded shadow-sm hover:shadow transition-all flex items-center gap-2" href="tel:1122">
+<span class="material-symbols-outlined text-[18px]">call</span>
+                            Call
+                        </a>
+</div>
+</div>
+<div class="p-4 sm:px-6 sm:py-5 flex items-center justify-between hover:bg-gray-50 transition-colors group">
+<div>
+<div class="font-bold text-charcoal text-lg">Fire Brigade</div>
+<div class="text-sm text-gray-500">Fire outbreaks, hazardous material</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-mono text-xl font-bold text-gray-400 group-hover:text-charcoal transition-colors">16</span>
+<a class="bg-burgundy-600 hover:bg-primary-dark text-white text-sm font-medium py-2 px-4 rounded shadow-sm hover:shadow transition-all flex items-center gap-2" href="tel:16">
+<span class="material-symbols-outlined text-[18px]">call</span>
+                            Call
+                        </a>
+</div>
+</div>
+<div class="p-4 sm:px-6 sm:py-5 flex items-center justify-between hover:bg-gray-50 transition-colors group">
+<div>
+<div class="font-bold text-charcoal text-lg">Women’s Helpline</div>
+<div class="text-sm text-gray-500">Harassment, domestic violence</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-mono text-xl font-bold text-gray-400 group-hover:text-charcoal transition-colors">1043</span>
+<a class="bg-burgundy-600 hover:bg-primary-dark text-white text-sm font-medium py-2 px-4 rounded shadow-sm hover:shadow transition-all flex items-center gap-2" href="tel:1043">
+<span class="material-symbols-outlined text-[18px]">call</span>
+                            Call
+                        </a>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 px-6 py-3 text-xs text-gray-500 text-center border-t border-gray-100">
+                If you’re in immediate danger, call Police 15 or Rescue 1122.
+            </div>
+</div>
+</section>
+<section>
+<div class="mb-4">
+<h3 class="text-xl font-bold text-charcoal mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">visibility</span>
+                Mode awareness
+            </h3>
+<p class="text-sm text-gray-600">Practical reminders for safer travel—before, during, and after your ride.</p>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+<div class="h-32 overflow-hidden bg-gray-100">
+<img alt="Soft-focus image of a city bus in traffic" class="w-full h-full object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu6K8vWMkiICwCusATHPXo3apseRLTJ4h_NldmJ1lQZ6bY4ggEGTOByNYYGhqx8jPHPvPpHu8cBJLkP7tbTzE7wiocqumL8g1-vQbYvuwzPT6Gd-1VS_9N3C6JP00PP74HotP89aq2-FRL5s8irpBPwXMMMw3zvr7kDBt0xxsD_xrAMpEF27y92hh_lZbxGoD4oqIciT69P9abXi1Fl2u9IAJqkMyu4ATMhwUK12UMNgfmviyfuPWgP6SFYmPKx563xNO4uKEpBQ"/>
+</div>
+<div class="p-6">
+<h4 class="font-bold text-charcoal mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-500 text-[20px]">directions_bus</span>
+                        Metro (Bus) awareness
+                    </h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Keep bags in front and phone secure near doors.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Stand behind the line; let passengers exit first.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Hold a rail; avoid leaning on doors.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Move away from the curbside when boarding/alighting.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">If you feel unsafe, change seats/coach area and call for help.</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+<div class="h-32 overflow-hidden bg-gray-100">
+<img alt="Soft-focus image of a modern train at a station platform" class="w-full h-full object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzZim3Yj7hpm-mSm6YG-ZGixEeWt4MPuAGjZq-De95tCzn-pKz5ChwnmfMruxE3N7eIxhqw-35RpqA8N2JfB80i8g3VeO5_f1kvPTIrAomnbzzWZG9t0X0uYS9TwXQ3-8Kgz_HgWZvyEjmbwaILaanxO6n6YOSYWhDysp6wSkwRO7_gBvZacV-194ZG-Oxrno3cM_l7cMn0pO2oMEoRN0iBmMM3aPzdbKu0KVJOh-zQIQMFy4WO9VPiwm7V959h7KSSy0ZuTi37Q"/>
+</div>
+<div class="p-6">
+<h4 class="font-bold text-charcoal mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-500 text-[20px]">train</span>
+                        Orange Line (Train) awareness
+                    </h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Keep distance from platform edge; avoid rushing the doors.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Mind the gap—step carefully when boarding.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Keep valuables zipped; stay alert in crowded coaches.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Note the station name before exiting; don’t follow strangers.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">If separated from companions, agree on a meeting point (next station).</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+<div class="h-32 overflow-hidden bg-gray-100">
+<img alt="Soft-focus image of a taxi car interior view" class="w-full h-full object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEaPylDf28GYjSObK79-ZB1UHbr7PQGCiKYX9Pp-uvKhtJs3lQgFje41G_Ji_NI0YbG31WISW0Pov-wEii04umOQ_u7uD3OjipysvbQwt29MmrACr3XBtXMv0nc8n5MMnlicdQy7dJ4arlgG97zLA5jK1Y6UB3ZEV95wGkUDexq7HeYqwBnNn_i9NljWSoUB-33BwntSaXJr7xmjoAv0O6plTXnN8Xhvdi86DT-tqYd7MSusSb7aalxK8BGXpmGpkn8cim7Tzm4g"/>
+</div>
+<div class="p-6">
+<h4 class="font-bold text-charcoal mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-500 text-[20px]">local_taxi</span>
+                        Taxi awareness
+                    </h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Confirm vehicle and driver details before getting in.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Share trip details/location with a trusted contact.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Sit in the back seat when riding alone when possible.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Keep doors locked and windows mostly up.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Trust your instincts—end the ride in a safe public place if needed.</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+<div class="h-32 overflow-hidden bg-gray-100">
+<img alt="Soft-focus image of a bicycle on a city street" class="w-full h-full object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCo4d7nZ1WnMMxK9vrcllhWKTeexZp4entovPKXXRwHmxDpn2MPPVLEus1G7NbTUV1msjhrQv_fqfMsiuy4KWwd_clIMuLn1DRPxtfNJqrCOw5TUFgriiNHslSYrwT-0GldPKc5LNwn5C6TDuzCYpoqBxwhcDr2f2LO_XSoLdkYi0zbH8YqMpiBqbtMfuKo3I79il1XsdJlqfDwc88z2gTFcn67eDNhJPchRNO2AqrtBBYGCv_7rywS99JloT0SvW4xbzijY5LEOA"/>
+</div>
+<div class="p-6">
+<h4 class="font-bold text-charcoal mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-500 text-[20px]">pedal_bike</span>
+                        Bike awareness
+                    </h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Wear a helmet and visible clothing (even for short trips).</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Avoid blind spots; assume drivers may not see you.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Use a well-lit route at night; keep phone away while riding.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Keep a safe buffer from parked cars (door opening risk).</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Slow down at intersections and wet patches.</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h3 class="text-xl font-bold text-charcoal mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-600">local_fire_department</span>
+            In Case of Fire
+        </h3>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+<h4 class="font-bold text-charcoal mb-3">If you notice smoke or fire</h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Alert the driver immediately if safe to do so.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Move away from the source of smoke.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Cover your nose and mouth with a cloth.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Keep low to the floor where air is cleaner.</span>
+</li>
+</ul>
+</div>
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+<h4 class="font-bold text-charcoal mb-3">If exits are blocked</h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Locate the emergency hammer near windows.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Strike the corner of the window glass firmly.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Push the glass out carefully.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Exit quickly and help others if possible.</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<h3 class="text-xl font-bold text-charcoal mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-red-600">car_crash</span>
+            Road Accident
+        </h3>
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+<h4 class="font-bold text-charcoal mb-3">If there’s an accident</h4>
+<div class="grid md:grid-cols-2 gap-x-8 gap-y-4">
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Check yourself and others for injuries.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Call Rescue 1122 immediately for medical help.</span>
+</li>
+</ul>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Do not move injured persons unless in immediate danger.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Move to a safe spot off the road if uninjured.</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<h3 class="text-xl font-bold text-charcoal mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-600">security</span>
+            Digital Security
+        </h3>
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+<h4 class="font-bold text-charcoal mb-3">Digital safety essentials</h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Avoid using public Wi-Fi for banking apps or sensitive transactions.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">RaastaGo will never ask for your password or OTP via call or SMS.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<span class="text-gray-700 text-sm">Keep location sharing on for trusted contacts during late travel.</span>
+</li>
+</ul>
+</div>
+</section>
+</main>
+<footer class="bg-white border-t border-gray-200 mt-auto py-8">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row items-center justify-between gap-4">
+<p class="text-sm text-gray-500">© 2026 RaastaGo Optimized for Punjab</p>
+<div class="flex space-x-6">
+<button class="text-sm text-gray-500 hover:text-primary transition-colors focus:outline-none" onclick="openModal('privacy-modal')">Privacy</button>
+<button class="text-sm text-gray-500 hover:text-primary transition-colors focus:outline-none" onclick="openModal('terms-modal')">Terms</button>
+<button class="text-sm text-gray-500 hover:text-primary transition-colors focus:outline-none" onclick="openModal('about-modal')">About Us</button>
+</div>
+</div>
+</div>
+</footer>
+<div aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-[70] hidden" id="privacy-modal" role="dialog">
+<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onclick="closeModal('privacy-modal')"></div>
+<div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+<div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+<div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+<div class="sm:flex sm:items-start">
+<div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+<h3 class="text-base font-semibold leading-6 text-charcoal" id="modal-title">Privacy Policy</h3>
+<div class="mt-2">
+<p class="text-sm text-gray-500">Your data is used strictly for routing purposes only. We ensure your location history is protected and never sold to third parties.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+<button class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-charcoal shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onclick="closeModal('privacy-modal')" type="button">Close</button>
+</div>
+</div>
+</div>
+</div>
+<div aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-[70] hidden" id="terms-modal" role="dialog">
+<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onclick="closeModal('terms-modal')"></div>
+<div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+<div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+<div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+<div class="sm:flex sm:items-start">
+<div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+<h3 class="text-base font-semibold leading-6 text-charcoal" id="modal-title">Terms of Service</h3>
+<div class="mt-2">
+<p class="text-sm text-gray-500">Travel time estimates may vary based on actual traffic conditions. Users are responsible for their safety. RaastaGo holds limited liability for route accuracy.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+<button class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-charcoal shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onclick="closeModal('terms-modal')" type="button">Close</button>
+</div>
+</div>
+</div>
+</div>
+<div aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-[70] hidden" id="about-modal" role="dialog">
+<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onclick="closeModal('about-modal')"></div>
+<div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+<div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+<div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+<div class="sm:flex sm:items-start">
+<div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+<h3 class="text-base font-semibold leading-6 text-charcoal" id="modal-title">About Us</h3>
+<div class="mt-2 space-y-4">
+<p class="text-sm text-gray-500">Our mission is to improve daily commutes across Punjab by providing smart, data-driven route optimization for everyone.</p>
+<p class="text-sm text-gray-500 font-medium">Contact: support@raastago.pk</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+<button class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-charcoal shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onclick="closeModal('about-modal')" type="button">Close</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>
